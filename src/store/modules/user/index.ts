@@ -5,7 +5,7 @@ import {
   getUserInfo,
   LoginData,
 } from '@/api/user';
-// import { setToken, clearToken } from '@/utils/auth';
+import { setToken, clearToken } from '@/utils/auth';
 import { UserState } from './types';
 
 export const useUserStore = defineStore('user', {
@@ -55,9 +55,9 @@ export const useUserStore = defineStore('user', {
     async login(loginForm: LoginData) {
       try {
         const res = await userLogin(loginForm);
-        // setToken(res.data.token);
+        setToken(res.data.token);
       } catch (err) {
-        // clearToken();
+        clearToken();
         throw err;
       }
     },
@@ -67,7 +67,7 @@ export const useUserStore = defineStore('user', {
       await userLogout();
 
       this.resetInfo();
-      //   clearToken();
+      clearToken();
     },
   },
 });

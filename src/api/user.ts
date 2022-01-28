@@ -13,13 +13,13 @@ export interface LoginRes {
 const URL = '/api/system/user';
 
 export function login(data: LoginData) {
-  return axios.post<LoginRes>(URL + '/login', data);
+  return axios.post<LoginRes>(`${URL}/login`, data);
 }
 
 export function logout() {
-  return axios.post<LoginRes>(URL + '/logout');
+  return axios.post<LoginRes>(`${URL}/logout`);
 }
 
 export function getUserInfo() {
-  return axios.post<UserState>(URL + '/info');
+  return axios.post<UserState>(`${URL}/info`);
 }

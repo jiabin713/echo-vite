@@ -61,63 +61,52 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, reactive } from 'vue';
+<script setup lang="ts">
+import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { Message } from '@arco-design/web-vue';
 import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
 import { useUserStore } from '@/store';
 import useLoading from '@/hooks/loading';
 import { LoginData } from '@/api/user';
-export default defineComponent({
-  setup() {
-    const router = useRouter();
-    const errorMessage = ref('');
-    const { loading, setLoading } = useLoading();
-    const userStore = useUserStore();
-    const userInfo = reactive({
-      username: 'admin',
-      password: 'admin',
-    });
-    const handleSubmit = async ({
-      errors,
-      values,
-    }: {
-      errors: Record<string, ValidatedError> | undefined;
-      values: LoginData;
-    }) => {
-      if (!errors) {
-        setLoading(true);
-        try {
-          await userStore.login(values);
-          const { redirect, ...othersQuery } = router.currentRoute.value.query;
-          router.push({
-            name: (redirect as string) || 'workplace',
-            query: {
-              ...othersQuery,
-            },
-          });
-          Message.success('欢迎使用');
-        } catch (err) {
-          errorMessage.value = (err as Error).message;
-          // Message.error((err as Error).message);
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-    const setRememberPassword = () => {
-      //
-    };
-    return {
-      loading,
-      userInfo,
-      errorMessage,
-      handleSubmit,
-      setRememberPassword,
-    };
-  },
+const router = useRouter();
+const errorMessage = ref('');
+const { loading, setLoading } = useLoading();
+const userStore = useUserStore();
+const userInfo = reactive({
+  username: 'admin',
+  password: 'admin',
 });
+const handleSubmit = async ({
+  errors,
+  values,
+}: {
+  errors: Record<string, ValidatedError> | undefined;
+  values: LoginData;
+}) => {
+  if (!errors) {
+    setLoading(true);
+    try {
+      await userStore.login(values);
+      const { redirect, ...othersQuery } = router.currentRoute.value.query;
+      router.push({
+        name: (redirect as string) || 'workplace',
+        query: {
+          ...othersQuery,
+        },
+      });
+      Message.success('欢迎使用');
+    } catch (err) {
+      errorMessage.value = (err as Error).message;
+      // Message.error((err as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  }
+};
+const setRememberPassword = () => {
+  //
+};
 </script>
 
 <style lang="less" scoped>

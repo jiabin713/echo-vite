@@ -1,10 +1,11 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import styleImport from 'vite-plugin-style-import';
+import Components from 'unplugin-vue-components/vite';
+import { ArcoResolver } from 'unplugin-vue-components/resolvers';
 
-// import vueJsx from '@vitejs/plugin-vue-jsx';
-// import svgLoader from 'vite-svg-loader';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import svgLoader from 'vite-svg-loader';
 // import eslint from 'vite-plugin-eslint';
 
 export default defineConfig({
@@ -20,42 +21,31 @@ export default defineConfig({
     },
   },
   server: {
-    open: true,
+    open: false,
     fs: {
       strict: true,
     },
-    proxy: {
-      // 选项写法
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
+    // proxy: {
+    //   // 选项写法
+    //   '/api': {
+    //     target: 'http://localhost:8080',
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/api/, ''),
+    //   },
+    // },
   },
   plugins: [
     vue(),
-    // vueJsx(),
-    // svgLoader({ svgoConfig: {} }),
+    Components({
+      resolvers: [ArcoResolver()],
+    }),
+    vueJsx(),
+    svgLoader({ svgoConfig: {} }),
     // eslint({
     //   cache: false,
     //   include: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.vue'],
     //   exclude: ['node_modules'],
     // }),
-    styleImport({
-      libs: [
-        {
-          libraryName: '@arco-design/web-vue',
-          esModule: true,
-          resolveStyle: (name) => {
-            // css
-            // return `@arco-design/web-vue/es/${name}/style/css.js`
-            // less
-            return `@arco-design/web-vue/es/${name}/style/index.js`;
-          },
-        },
-      ],
-    }),
   ],
   resolve: {
     alias: [
