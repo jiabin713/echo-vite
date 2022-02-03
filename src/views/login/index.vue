@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Footer from '@/components/footer/index.vue';
+import Footer from '@/components/footer/index2.vue';
 import LoginBanner from './components/banner.vue';
 import LoginForm from './components/login-form.vue';
 export default defineComponent({

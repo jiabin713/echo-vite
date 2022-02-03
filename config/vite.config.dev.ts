@@ -1,8 +1,6 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import Components from 'unplugin-vue-components/vite';
-import { ArcoResolver } from 'unplugin-vue-components/resolvers';
 
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import svgLoader from 'vite-svg-loader';
@@ -36,9 +34,6 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    Components({
-      resolvers: [ArcoResolver()],
-    }),
     vueJsx(),
     svgLoader({ svgoConfig: {} }),
     // eslint({
@@ -66,7 +61,7 @@ export default defineConfig({
         replacement: 'vue/dist/vue.esm-bundler.js', // compile template
       },
     ],
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js', '.tsx', 'jsx'],
   },
   define: {
     'process.env': {},

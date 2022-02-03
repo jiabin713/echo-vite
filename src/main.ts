@@ -6,8 +6,7 @@ import router from './router';
 import store from './store';
 import i18n from './locale';
 import './mock';
-import App from './App.vue';
-// import '@arco-design/web-vue/dist/arco.css';
+import App from './App';
 import '@/assets/style/global.less';
 import '@/api/interceptor';
 

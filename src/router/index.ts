@@ -2,20 +2,20 @@ import { createRouter, createWebHistory } from 'vue-router';
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css';
 
-import PageLayout from '@/layout/page-layout.vue';
 import Login from './modules/login';
 import appRoutes from './modules';
+import PageLayout from '@/layout/PageLayout';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    {
-      path: '/',
-      redirect: 'login',
-    },
-    Login,
+    // {
+    //   path: '/',
+    //   redirect: 'login',
+    // },
+    // Login,
     {
       name: 'root',
       path: '/system',
